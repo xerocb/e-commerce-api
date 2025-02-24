@@ -1,7 +1,13 @@
-import pg from 'pg';
+const pg = require('pg');
 const { Pool } = pg;
 
-const pool = new Pool();
+const pool = new Pool({
+    user: process.env.DBUSER,
+    host: process.env.DBHOST,
+    database: process.env.DBDATABASE,
+    password: process.env.DBPASSWORD,
+    port: process.env.DBPORT
+});
 
 export const query = (text, params, callback) => {
     return pool.query(text, params, callback);
