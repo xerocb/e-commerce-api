@@ -12,6 +12,7 @@ const query = require('./db/index');
 
 const registerRouter = require('./routes/register');
 const productsRouter = require('./routes/products');
+const usersRouter = require('./routes/users');
 
 app.use(session({
     secret: process.env.SECRET,
@@ -70,6 +71,7 @@ app.post('/login',
 
 app.use('/register', registerRouter);
 app.use('/products', productsRouter);
+app.use('/users', usersRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
