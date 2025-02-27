@@ -8,8 +8,10 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const registerRouter = require('./routes/register');
 const query = require('./db/index');
+
+const registerRouter = require('./routes/register');
+const productsRouter = require('./routes/products');
 
 app.use(session({
     secret: process.env.SECRET,
@@ -67,6 +69,7 @@ app.post('/login',
 );
 
 app.use('/register', registerRouter);
+app.use('/products', productsRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
