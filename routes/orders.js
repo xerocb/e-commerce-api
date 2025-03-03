@@ -47,4 +47,22 @@ router.get('/:orderId/items', async (req, res, next) => {
     }
 });
 
+router.get('/:orderId/items/:orderItemId', async (req, res, next) => {
+    const { orderId, orderItemId } = req.params;
+
+    try {
+        const getCartItemQuery = await query(
+            `SELECT *
+            FROM order_items
+            WHERE order_id=$1
+            AND id=$2`,
+            [orderId, orderItemId]
+        );
+
+        res.status(200).send(getCartItemQuery.rows[0]);
+    } catch(err) {
+        next(err);
+    }
+});
+
 module.exports = router;
