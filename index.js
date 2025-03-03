@@ -14,6 +14,7 @@ const registerRouter = require('./routes/register');
 const productsRouter = require('./routes/products');
 const usersRouter = require('./routes/users');
 const cartRouter = require('./routes/cart');
+const ordersRouter = require('./routes/orders');
 
 app.use(session({
     secret: process.env.SECRET,
@@ -74,6 +75,7 @@ app.use('/register', registerRouter);
 app.use('/products', productsRouter);
 app.use('/users', usersRouter);
 app.use('/cart', cartRouter);
+app.use('/orders', ordersRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
