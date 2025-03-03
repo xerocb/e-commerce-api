@@ -9,12 +9,15 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const query = require('./db/index');
+const cors = require('cors');
 
 const registerRouter = require('./routes/register');
 const productsRouter = require('./routes/products');
 const usersRouter = require('./routes/users');
 const cartRouter = require('./routes/cart');
 const ordersRouter = require('./routes/orders');
+
+app.use(cors());
 
 app.use(session({
     secret: process.env.SECRET,
