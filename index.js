@@ -17,12 +17,19 @@ const usersRouter = require('./routes/users');
 const cartRouter = require('./routes/cart');
 const ordersRouter = require('./routes/orders');
 
-app.use(cors());
+app.use(cors({
+    origin: process.env.FRONTEND_ORIGIN,
+    credentials: true
+}));
 
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        maxAge: 24 * 60 * 60 * 1000
+    }
 }));
 
 app.use(bodyParser.json());
@@ -70,7 +77,7 @@ passport.use(new LocalStrategy(
 app.post('/login', 
     passport.authenticate('local'),
     (req, res) => {
-        res.status(200).send('Login successful');
+        res.status(200).send(JSON.stringify(req.user));
     }
 );
 
