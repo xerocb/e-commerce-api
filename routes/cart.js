@@ -111,6 +111,12 @@ router.post('/checkout', async(req, res, next) => {
             [orderId, cartId]
         );
 
+        await query(
+            `DELETE FROM cart_items
+            WHERE cart_id=$1`,
+            [cartId]
+        );
+
         res.status(201).send(`Order added with ID: ${orderId}`)
     } catch(err) {
         next(err);
