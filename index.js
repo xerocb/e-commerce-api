@@ -80,6 +80,15 @@ app.use('/users', usersRouter);
 app.use('/cart', cartRouter);
 app.use('/orders', ordersRouter);
 
+app.get('/logout', (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            next(err);
+        }
+        res.redirect('/');
+    });
+});
+
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
