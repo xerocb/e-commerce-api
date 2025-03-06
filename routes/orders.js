@@ -30,6 +30,23 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+router.get('/:orderId', async (req, res, next) => {
+    const { orderId } = req.params;
+
+    try {
+        const getOrderQuery = await query(
+            `SELECT *
+            FROM orders
+            WHERE id=$1`,
+            [orderId]
+        );
+
+        res.status(200).send(getOrderQuery.rows[0]);
+    } catch(err) {
+        next(err);
+    }
+});
+
 router.get('/:orderId/items', async (req, res, next) => {
     const { orderId } = req.params;
 
